@@ -25,7 +25,7 @@ const items = [
     up: 1,
   },
   {
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg',
+    logo: 'micrologo.png',
     t: 'Build 2026: Project Polaris, Windows Agent Framework y Agent Mode para Office 365',
     d: 'LIVE',
     up: 1,
