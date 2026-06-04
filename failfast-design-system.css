@@ -1,0 +1,440 @@
+/* ============================================================================
+   FAIL FAST — DESIGN SYSTEM
+   Clean, Notion-flavored, AI-first SaaS aesthetic.
+   Pure-white surfaces · near-black ink (#191919) · electric-blue brand (#4361ff)
+   · single sans family (Inter).
+
+   Usage:
+     <link rel="stylesheet" href="failfast-design-system.css">
+     <body> ...                       light mode (default)
+     <body class="dark"> ...          dark mode
+
+   Tokens live on :root. Dark mode overrides via .dark. Utility classes are
+   prefixed .ff-*. All design decisions are tokens — never hard-code a value
+   in product code; reference var(--ff-*) instead.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   1. FONT LOADING
+   Prefer @fontsource/inter in a bundler project; here we @import the CDN.
+   Weights 300–900.
+   ------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ============================================================================
+   2. DESIGN TOKENS — LIGHT MODE (default)
+   ========================================================================= */
+:root {
+  /* --- Typography: families ----------------------------------------------- */
+  --ff-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                  'Helvetica Neue', Arial, sans-serif;
+  --ff-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --ff-font-serif: ui-serif, Georgia, 'Times New Roman', serif;
+
+  /* --- Typography: scale (px) --------------------------------------------- */
+  --ff-text-xs:   12px;
+  --ff-text-sm:   14px;
+  --ff-text-base: 16px;
+  --ff-text-lg:   18px;
+  --ff-text-xl:   20px;
+  --ff-text-2xl:  24px;
+  --ff-text-3xl:  30px;
+  --ff-text-4xl:  36px;
+  --ff-text-5xl:  48px;
+  --ff-text-6xl:  60px;
+  --ff-text-7xl:  72px;
+
+  /* --- Typography: line heights ------------------------------------------- */
+  --ff-leading-tight:   1.1;
+  --ff-leading-snug:    1.25;
+  --ff-leading-normal:  1.5;
+  --ff-leading-relaxed: 1.625;
+
+  /* --- Typography: letter spacing ----------------------------------------- */
+  --ff-tracking-tight:  -0.02em;
+  --ff-tracking-normal: 0;
+  --ff-tracking-wide:   0.02em;
+
+  /* --- Brand: electric blue ----------------------------------------------- */
+  --ff-primary:        #4361ff;
+  --ff-primary-hover:  #3a52e6;
+  --ff-primary-active: #2f45c7;
+  --ff-primary-soft:   #7b9cff;   /* gradient partner / secondary accent      */
+  --ff-primary-50:     #eef1ff;   /* tinted background                        */
+  --ff-primary-100:    #dbe2ff;   /* tinted background                        */
+  --ff-accent:         #6366f1;   /* indigo accent                            */
+
+  /* Demo-button tint (soft blue chip CTA) */
+  --ff-demo-bg:    #e3f2fd;
+  --ff-demo-hover: #bbdefb;
+  --ff-demo-fg:    #1565c0;
+
+  /* --- Neutrals: surfaces (Notion-flavored) ------------------------------- */
+  --ff-bg-page:   #ffffff;
+  --ff-bg-card:   #ffffff;   /* card / hero surface                          */
+  --ff-bg-muted:  #f5f5f5;
+  --ff-bg-subtle: #fafafa;
+
+  /* --- Neutrals: foregrounds (ink is THE primary token) ------------------- */
+  --ff-fg:        #191919;   /* primary body ink — the most important token  */
+  --ff-fg-strong: #0a0a0a;
+  --ff-fg-muted:  #404040;
+  --ff-fg-subtle: #737373;
+  --ff-fg-faint:  #a3a3a3;
+
+  /* --- Neutrals: borders -------------------------------------------------- */
+  --ff-border:      #e5e5e5;
+  --ff-border-soft: rgba(0, 0, 0, 0.06);
+
+  /* --- Semantic: success -------------------------------------------------- */
+  --ff-success:        #2f8560;
+  --ff-success-fg:     #1f5a41;
+  --ff-success-bg:     #e6f2eb;
+  --ff-success-border: #b5d6c3;
+
+  /* --- Semantic: warn ----------------------------------------------------- */
+  --ff-warn:        #d97a2b;
+  --ff-warn-fg:     #8a4311;
+  --ff-warn-bg:     #fcefde;
+  --ff-warn-border: #f1c994;
+
+  /* --- Semantic: danger --------------------------------------------------- */
+  --ff-danger:        #d64545;
+  --ff-danger-fg:     #8a2424;
+  --ff-danger-bg:     #fbe8e5;
+  --ff-danger-border: #f0b5ad;
+
+  /* --- Semantic: info ----------------------------------------------------- */
+  --ff-info:        #4b63b8;
+  --ff-info-fg:     #2d3d7a;
+  --ff-info-bg:     #ecefff;
+  --ff-info-border: #c4cdf0;
+
+  /* --- Semantic: plum (premium tags) -------------------------------------- */
+  --ff-plum:        #7b4a8c;
+  --ff-plum-fg:     #7b4a8c;
+  --ff-plum-bg:     #f3ebf5;
+  --ff-plum-border: #d9c4de;
+
+  /* --- Semantic: neutral chip --------------------------------------------- */
+  --ff-neutral:        #6b6b68;
+  --ff-neutral-fg:     #6b6b68;
+  --ff-neutral-bg:     #f4f3f0;
+  --ff-neutral-border: #dedcd6;
+
+  /* --- Signature gradients ------------------------------------------------ */
+  --ff-gradient-primary:        linear-gradient(to right, #4361ff, #7b9cff);
+  --ff-gradient-primary-strong: linear-gradient(to right, #4361ff, #5a7cff, #7b9cff);
+  --ff-gradient-hero-text:      linear-gradient(to right, #4361ff, #7b9cff);
+  --ff-gradient-section:        linear-gradient(to bottom, #ffffff, #f9fafb, #ffffff);
+
+  /* --- Radii -------------------------------------------------------------- */
+  --ff-radius-xs:   4px;
+  --ff-radius-sm:   6px;    /* inputs / chips           */
+  --ff-radius-md:   10px;   /* buttons                  */
+  --ff-radius-lg:   12px;   /* cards                    */
+  --ff-radius-xl:   16px;
+  --ff-radius-2xl:  24px;   /* marketing panels         */
+  --ff-radius-full: 9999px; /* pills / avatars          */
+
+  /* --- Shadows (hairline ring + lift) ------------------------------------- */
+  --ff-shadow-sm: 0 0 0 1px rgba(15, 15, 15, 0.05),
+                  0 3px 6px rgba(15, 15, 15, 0.1);
+  --ff-shadow-md: 0 0 0 1px rgba(15, 15, 15, 0.05),
+                  0 3px 6px rgba(15, 15, 15, 0.1),
+                  0 9px 24px rgba(15, 15, 15, 0.2);
+  --ff-shadow-lg: 0 20px 60px rgba(15, 15, 15, 0.15);
+  --ff-shadow-glow:        0 10px 30px -10px rgba(67, 97, 255, 0.35);
+  --ff-shadow-glow-strong: 0 10px 40px -8px rgba(67, 97, 255, 0.45);
+
+  /* --- Spacing scale ------------------------------------------------------ */
+  --ff-space-1:  4px;
+  --ff-space-2:  8px;
+  --ff-space-3:  12px;
+  --ff-space-4:  16px;
+  --ff-space-5:  20px;
+  --ff-space-6:  24px;
+  --ff-space-8:  32px;
+  --ff-space-10: 40px;
+  --ff-space-12: 48px;
+  --ff-space-16: 64px;
+  --ff-space-20: 80px;
+
+  /* --- Selection ---------------------------------------------------------- */
+  --ff-selection-bg: #dbe2ff;
+  --ff-selection-fg: #2f45c7;
+}
+
+/* ============================================================================
+   3. DESIGN TOKENS — DARK MODE (.dark)
+   Lightness inverted, brand hue preserved.
+   ========================================================================= */
+.dark {
+  /* --- Brand -------------------------------------------------------------- */
+  --ff-primary:        #5c78ff;
+  --ff-primary-hover:  #7b91ff;
+  --ff-primary-active: #8fa3ff;
+  --ff-primary-soft:   #8fa9ff;
+  --ff-primary-50:     #1a1f3a;
+  --ff-primary-100:    #232a4d;
+  --ff-accent:         #818cf8;
+
+  /* --- Surfaces (stepped darks) ------------------------------------------ */
+  --ff-bg-page:   #0b0b0d;
+  --ff-bg-card:   #161618;
+  --ff-bg-muted:  #1c1c1f;
+  --ff-bg-subtle: #141416;
+
+  /* --- Foregrounds (inverted ink) ---------------------------------------- */
+  --ff-fg:        #f5f5f5;
+  --ff-fg-strong: #ffffff;
+  --ff-fg-muted:  #c4c4c4;
+  --ff-fg-subtle: #8a8a8a;
+  --ff-fg-faint:  #525252;
+
+  /* --- Borders ------------------------------------------------------------ */
+  --ff-border:      #2a2a2e;
+  --ff-border-soft: rgba(255, 255, 255, 0.08);
+
+  /* --- Semantics (low-chroma dark tints) --------------------------------- */
+  --ff-success:        #4db08a;
+  --ff-success-fg:     #4db08a;
+  --ff-success-bg:     #15261f;
+  --ff-success-border: #2c4a3c;
+
+  --ff-warn:        #e8954d;
+  --ff-warn-fg:     #e8954d;
+  --ff-warn-bg:     #2a1c10;
+  --ff-warn-border: #4d3a22;
+
+  --ff-danger:        #e76161;
+  --ff-danger-fg:     #e76161;
+  --ff-danger-bg:     #2a1616;
+  --ff-danger-border: #4d2c2c;
+
+  --ff-info:        #7b8fd9;
+  --ff-info-fg:     #7b8fd9;
+  --ff-info-bg:     #1a1f36;
+  --ff-info-border: #313a5c;
+
+  --ff-plum:        #a070b0;
+  --ff-plum-fg:     #a070b0;
+  --ff-plum-bg:     #261a2a;
+  --ff-plum-border: #43344a;
+
+  --ff-neutral:        #9a9a96;
+  --ff-neutral-fg:     #9a9a96;
+  --ff-neutral-bg:     #1e1e1c;
+  --ff-neutral-border: #383834;
+
+  /* --- Gradients ---------------------------------------------------------- */
+  --ff-gradient-hero-text: linear-gradient(to right, #7b9cff, #b4c4ff);
+  --ff-gradient-section:   linear-gradient(to bottom, #0b0b0d, #121214, #0b0b0d);
+
+  /* --- Shadows (white inner ring + heavier black; glow → 0.55) ----------- */
+  --ff-shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.06),
+                  0 3px 8px rgba(0, 0, 0, 0.5);
+  --ff-shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.06),
+                  0 3px 8px rgba(0, 0, 0, 0.5),
+                  0 12px 32px rgba(0, 0, 0, 0.6);
+  --ff-shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.7);
+  --ff-shadow-glow:        0 10px 30px -10px rgba(92, 120, 255, 0.55);
+  --ff-shadow-glow-strong: 0 10px 44px -8px rgba(92, 120, 255, 0.65);
+
+  /* --- Selection ---------------------------------------------------------- */
+  --ff-selection-bg: #232a4d;
+  --ff-selection-fg: #b4c4ff;
+}
+
+/* ============================================================================
+   5. BASE SETUP
+   ========================================================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  font-family: var(--ff-font-sans);
+  color: var(--ff-fg);
+  background: var(--ff-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  font-size: var(--ff-text-base);
+  line-height: var(--ff-leading-normal);
+}
+
+::selection {
+  background: var(--ff-selection-bg);
+  color: var(--ff-selection-fg);
+}
+
+/* ============================================================================
+   1. SEMANTIC TEXT STYLES (utility classes)
+   ========================================================================= */
+.ff-display {
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw + 1rem, 72px);
+  line-height: var(--ff-leading-tight);
+  letter-spacing: var(--ff-tracking-tight);
+  color: var(--ff-fg-strong);
+}
+
+.ff-h1 {
+  font-weight: 700;
+  font-size: clamp(2rem, 3vw + 1rem, 60px);
+  line-height: var(--ff-leading-tight);
+  letter-spacing: var(--ff-tracking-tight);
+  color: var(--ff-fg-strong);
+}
+
+.ff-h2 {
+  font-weight: 600;
+  font-size: clamp(1.75rem, 2vw + 1rem, 48px);
+  line-height: var(--ff-leading-tight);
+  letter-spacing: var(--ff-tracking-tight);
+  color: var(--ff-fg-strong);
+}
+
+.ff-h3 {
+  font-weight: 600;
+  font-size: var(--ff-text-3xl);
+  line-height: var(--ff-leading-snug);
+  letter-spacing: var(--ff-tracking-tight);
+  color: var(--ff-fg-strong);
+}
+
+.ff-h4 {
+  font-weight: 600;
+  font-size: var(--ff-text-xl);
+  line-height: var(--ff-leading-snug);
+  color: var(--ff-fg-strong);
+}
+
+.ff-lead {
+  font-size: var(--ff-text-lg);
+  line-height: var(--ff-leading-normal);
+  color: var(--ff-fg-muted);
+}
+
+.ff-body {
+  font-size: var(--ff-text-base);
+  line-height: var(--ff-leading-normal);
+  color: var(--ff-fg);
+}
+
+.ff-small {
+  font-size: var(--ff-text-sm);
+  line-height: var(--ff-leading-normal);
+  color: var(--ff-fg-muted);
+}
+
+.ff-caption {
+  font-size: var(--ff-text-xs);
+  line-height: var(--ff-leading-normal);
+  letter-spacing: var(--ff-tracking-wide);
+  color: var(--ff-fg-subtle);
+}
+
+.ff-eyebrow {
+  font-size: var(--ff-text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ff-primary);
+}
+
+.ff-mono {
+  font-family: var(--ff-font-mono);
+  font-size: var(--ff-text-sm);
+}
+
+.ff-gradient-text {
+  background: var(--ff-gradient-hero-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ============================================================================
+   COMPONENT HELPERS (token-driven; optional but handy)
+   ========================================================================= */
+
+/* Primary CTA */
+.ff-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ff-space-2);
+  padding: var(--ff-space-3) var(--ff-space-5);
+  font-family: var(--ff-font-sans);
+  font-size: var(--ff-text-sm);
+  font-weight: 600;
+  line-height: 1;
+  border: 0;
+  border-radius: var(--ff-radius-md);
+  background: var(--ff-primary);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+}
+.ff-btn:hover  { background: var(--ff-primary-hover); }
+.ff-btn:active { background: var(--ff-primary-active); transform: translateY(1px); }
+.ff-btn--glow  { box-shadow: var(--ff-shadow-glow); }
+
+.ff-btn--demo {
+  background: var(--ff-demo-bg);
+  color: var(--ff-demo-fg);
+}
+.ff-btn--demo:hover { background: var(--ff-demo-hover); }
+
+.ff-btn--ghost {
+  background: transparent;
+  color: var(--ff-fg);
+  box-shadow: inset 0 0 0 1px var(--ff-border);
+}
+.ff-btn--ghost:hover { background: var(--ff-bg-muted); }
+
+/* Card surface */
+.ff-card {
+  background: var(--ff-bg-card);
+  border: 1px solid var(--ff-border);
+  border-radius: var(--ff-radius-lg);
+  box-shadow: var(--ff-shadow-sm);
+  padding: var(--ff-space-6);
+}
+
+/* Chips / tags — low-key tinted backgrounds */
+.ff-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ff-space-2);
+  padding: var(--ff-space-1) var(--ff-space-3);
+  font-size: var(--ff-text-xs);
+  font-weight: 600;
+  line-height: 1.4;
+  border-radius: var(--ff-radius-full);
+  border: 1px solid var(--ff-neutral-border);
+  background: var(--ff-neutral-bg);
+  color: var(--ff-neutral-fg);
+}
+.ff-chip--success { background: var(--ff-success-bg); border-color: var(--ff-success-border); color: var(--ff-success-fg); }
+.ff-chip--warn    { background: var(--ff-warn-bg);    border-color: var(--ff-warn-border);    color: var(--ff-warn-fg); }
+.ff-chip--danger  { background: var(--ff-danger-bg);  border-color: var(--ff-danger-border);  color: var(--ff-danger-fg); }
+.ff-chip--info    { background: var(--ff-info-bg);    border-color: var(--ff-info-border);    color: var(--ff-info-fg); }
+.ff-chip--plum    { background: var(--ff-plum-bg);    border-color: var(--ff-plum-border);    color: var(--ff-plum-fg); }
+
+/* Links */
+.ff-link {
+  color: var(--ff-primary);
+  text-decoration: none;
+}
+.ff-link:hover { color: var(--ff-primary-hover); text-decoration: underline; }
+
+/* Section background wash */
+.ff-section { background: var(--ff-gradient-section); }

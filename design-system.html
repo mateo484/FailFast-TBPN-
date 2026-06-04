@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fail Fast — Design System</title>
+  <link rel="stylesheet" href="failfast-design-system.css">
+  <style>
+    /* page chrome (uses tokens) */
+    .wrap { max-width: 960px; margin: 0 auto; padding: var(--ff-space-12) var(--ff-space-6); }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--ff-space-4) var(--ff-space-6);
+      background: color-mix(in srgb, var(--ff-bg-page) 85%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--ff-border);
+    }
+    .toggle {
+      font-size: var(--ff-text-sm); font-weight: 600; cursor: pointer;
+      padding: var(--ff-space-2) var(--ff-space-4);
+      border-radius: var(--ff-radius-full);
+      border: 1px solid var(--ff-border); background: var(--ff-bg-card); color: var(--ff-fg);
+    }
+    section { margin-top: var(--ff-space-12); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--ff-space-3); }
+    .swatch { border-radius: var(--ff-radius-md); overflow: hidden; border: 1px solid var(--ff-border); }
+    .swatch .chip { height: 56px; }
+    .swatch .label { padding: var(--ff-space-2) var(--ff-space-3); font-size: var(--ff-text-xs); }
+    .swatch .label b { display: block; color: var(--ff-fg); }
+    .swatch .label span { color: var(--ff-fg-subtle); font-family: var(--ff-font-mono); }
+    .row { display: flex; flex-wrap: wrap; gap: var(--ff-space-3); align-items: center; }
+    .stack > * + * { margin-top: var(--ff-space-3); }
+    .shadowbox { width: 140px; height: 90px; border-radius: var(--ff-radius-lg); background: var(--ff-bg-card); display: grid; place-items: center; font-size: var(--ff-text-xs); color: var(--ff-fg-subtle); }
+    .sectionlabel { margin-bottom: var(--ff-space-5); }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="ff-eyebrow">Fail Fast · Design System</span>
+    <button class="toggle" id="themeToggle">🌙 Dark</button>
+  </div>
+
+  <div class="wrap stack">
+
+    <!-- TYPOGRAPHY -->
+    <section>
+      <div class="sectionlabel"><span class="ff-eyebrow">Typography</span></div>
+      <p class="ff-display">Build. <span class="ff-gradient-text">Ship.</span> Fail fast.</p>
+      <h1 class="ff-h1">Heading one — tight tracking</h1>
+      <h2 class="ff-h2">Heading two</h2>
+      <h3 class="ff-h3">Heading three</h3>
+      <h4 class="ff-h4">Heading four</h4>
+      <p class="ff-lead">Lead paragraph — sets context with a slightly larger, muted line.</p>
+      <p class="ff-body">Body text is near-black ink on white. The electric blue is the single brand accent, reserved for primary actions, links, and one gradient clause.</p>
+      <p class="ff-small">Small text — secondary detail and metadata.</p>
+      <p class="ff-caption">Caption — fine print with a touch of letter spacing.</p>
+      <p class="ff-mono">ff-mono · const ship = () =&gt; deploy();</p>
+    </section>
+
+    <!-- BUTTONS / CHIPS -->
+    <section>
+      <div class="sectionlabel"><span class="ff-eyebrow">Components</span></div>
+      <div class="row">
+        <button class="ff-btn">Primary</button>
+        <button class="ff-btn ff-btn--glow">Primary · glow</button>
+        <button class="ff-btn ff-btn--demo">Book a demo</button>
+        <button class="ff-btn ff-btn--ghost">Ghost</button>
+        <a href="#" class="ff-link">A text link →</a>
+      </div>
+      <div class="row" style="margin-top: var(--ff-space-5);">
+        <span class="ff-chip">Neutral</span>
+        <span class="ff-chip ff-chip--success">Success</span>
+        <span class="ff-chip ff-chip--warn">Warn</span>
+        <span class="ff-chip ff-chip--danger">Danger</span>
+        <span class="ff-chip ff-chip--info">Info</span>
+        <span class="ff-chip ff-chip--plum">Premium</span>
+      </div>
+    </section>
+
+    <!-- BRAND COLORS -->
+    <section>
+      <div class="sectionlabel"><span class="ff-eyebrow">Brand</span></div>
+      <div class="grid" id="brandGrid"></div>
+    </section>
+
+    <!-- GRADIENTS -->
+    <section>
+      <div class="sectionlabel"><span class="ff-eyebrow">Gradients</span></div>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background: var(--ff-gradient-primary)"></div><div class="label"><b>primary</b></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--ff-gradient-primary-strong)"></div><div class="label"><b>primary-strong</b></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--ff-gradient-hero-text)"></div><div class="label"><b>hero-text</b></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--ff-gradient-section)"></div><div class="label"><b>section</b></div></div>
+      </div>
+    </section>
+
+    <!-- SHADOWS -->
+    <section>
+      <div class="sectionlabel"><span class="ff-eyebrow">Elevation</span></div>
+      <div class="row">
+        <div class="shadowbox" style="box-shadow: var(--ff-shadow-sm)">sm</div>
+        <div class="shadowbox" style="box-shadow: var(--ff-shadow-md)">md</div>
+        <div class="shadowbox" style="box-shadow: var(--ff-shadow-lg)">lg</div>
+        <div class="shadowbox" style="box-shadow: var(--ff-shadow-glow)">glow</div>
+      </div>
+    </section>
+
+    <!-- CARD -->
+    <section>
+      <div class="sectionlabel"><span class="ff-eyebrow">Surface</span></div>
+      <div class="ff-card" style="max-width: 420px;">
+        <span class="ff-chip ff-chip--info">v2.0</span>
+        <h3 class="ff-h4" style="margin-top: var(--ff-space-3);">Card on a card surface</h3>
+        <p class="ff-small" style="margin-top: var(--ff-space-2);">Hairline ring + soft lift, radius-lg, all tokens.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Theme toggle
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', () => {
+      const dark = document.body.classList.toggle('dark');
+      btn.textContent = dark ? '☀️ Light' : '🌙 Dark';
+    });
+
+    // Build brand swatches from live token values
+    const brand = [
+      ['--ff-primary', 'primary'], ['--ff-primary-hover', 'primary-hover'],
+      ['--ff-primary-active', 'primary-active'], ['--ff-primary-soft', 'primary-soft'],
+      ['--ff-primary-50', 'primary-50'], ['--ff-primary-100', 'primary-100'],
+      ['--ff-accent', 'accent'],
+      ['--ff-fg', 'fg (ink)'], ['--ff-fg-muted', 'fg-muted'], ['--ff-fg-subtle', 'fg-subtle'],
+      ['--ff-bg-muted', 'bg-muted'], ['--ff-border', 'border'],
+    ];
+    const grid = document.getElementById('brandGrid');
+    grid.innerHTML = brand.map(([tok, name]) => `
+      <div class="swatch">
+        <div class="chip" style="background: var(${tok})"></div>
+        <div class="label"><b>${name}</b><span>${tok}</span></div>
+      </div>`).join('');
+  </script>
+</body>
+</html>
