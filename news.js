@@ -1,51 +1,53 @@
 /* ============================================================================
-   FAIL FAST — NEWS TICKER
+   FAIL FAST — VALUATION TICKER
    ----------------------------------------------------------------------------
-   Edit the news that scrolls along the bottom ticker here. No need to touch
+   Edit the companies that scroll along the bottom ticker here. No need to touch
    failfast-overlay.html — just update the list below and refresh the overlay.
 
-   Each news item is shown as:   [ company logo ]  the headline   TAG
+   Each item is shown as:   [ company logo ]  NAME   $VALUATION ▲/▼
 
    Fields:
-     logo  → the company logo image. A web URL or a local file in this folder.
-             Logos are auto-tinted white to match the dark ticker.
-     t     → the headline text that scrolls past (the actual news)
-     d     → the small tag on the right (e.g. '€75B', '$36B', 'LIVE')
-     up    → color of that tag: 1 = green, 0 = red
+     domain → the company domain (e.g. 'apple.com'). The logo is fetched
+              automatically from this domain, so you don't need a logo file.
+     name   → the company display name
+     val    → the valuation text on the right (e.g. '$3.10T', '$885B')
+     up     → direction color: 1 = green ▲ (up), 0 = red ▼ (down)
 
-   To add a headline: copy a block, paste it, edit it, keep the commas.
+   NOTE: these valuations are illustrative placeholders, not real market data.
+
+   To add a company: copy a block, paste it, edit it, keep the commas.
    To remove one: delete its { ... } block.
    ========================================================================= */
 
 const items = [
-  {
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg',
-    t: 'Anthropic files for IPO at $965B valuation after $65B funding round',
-    d: 'NUEVO',
-    up: 1,
-  },
-  {
-    logo: 'micrologo.png',
-    t: 'Build 2026: Project Polaris, Windows Agent Framework y Agent Mode para Office 365',
-    d: 'LIVE',
-    up: 1,
-  },
-  {
-    logo: 'softbank.png',
-    t: 'SoftBank anuncia €75B en data centers de IA en Francia — mayor inversión de infraestructura IA en Europa',
-    d: '€75B',
-    up: 1,
-  },
-  {
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
-    t: 'GitHub Copilot cambia a facturación por tokens — modelo de suscripción plana eliminado',
-    d: '1 JUN',
-    up: 0,
-  },
-  {
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg',
-    t: 'Apollo y Blackstone cierran deal de $36B en TPUs de Google para Anthropic',
-    d: '$36B',
-    up: 1,
-  },
+  { domain: 'apple.com',             name: 'Apple',         val: '$3.10T', up: 1 },
+  { domain: 'microsoft.com',         name: 'Microsoft',     val: '$2.94T', up: 1 },
+  { domain: 'nvidia.com',            name: 'Nvidia',        val: '$2.71T', up: 1 },
+  { domain: 'google.com',            name: 'Alphabet',      val: '$2.05T', up: 0 },
+  { domain: 'amazon.com',            name: 'Amazon',        val: '$1.83T', up: 1 },
+  { domain: 'meta.com',              name: 'Meta',          val: '$1.29T', up: 1 },
+  { domain: 'tesla.com',             name: 'Tesla',         val: '$812B',  up: 0 },
+  { domain: 'tsmc.com',              name: 'TSMC',          val: '$702B',  up: 1 },
+  { domain: 'broadcom.com',          name: 'Broadcom',      val: '$635B',  up: 1 },
+  { domain: 'berkshirehathaway.com', name: 'Berkshire',     val: '$885B',  up: 0 },
+  { domain: 'lilly.com',             name: 'Eli Lilly',     val: '$758B',  up: 1 },
+  { domain: 'jpmorganchase.com',     name: 'JPMorgan',      val: '$588B',  up: 1 },
+  { domain: 'visa.com',              name: 'Visa',          val: '$542B',  up: 0 },
+  { domain: 'mastercard.com',        name: 'Mastercard',    val: '$431B',  up: 1 },
+  { domain: 'oracle.com',            name: 'Oracle',        val: '$392B',  up: 1 },
+  { domain: 'salesforce.com',        name: 'Salesforce',    val: '$289B',  up: 1 },
+  { domain: 'netflix.com',           name: 'Netflix',       val: '$308B',  up: 1 },
+  { domain: 'adobe.com',             name: 'Adobe',         val: '$274B',  up: 0 },
+  { domain: 'amd.com',               name: 'AMD',           val: '$258B',  up: 0 },
+  { domain: 'qualcomm.com',          name: 'Qualcomm',      val: '$214B',  up: 1 },
+  { domain: 'intel.com',             name: 'Intel',         val: '$187B',  up: 0 },
+  { domain: 'palantir.com',          name: 'Palantir',      val: '$118B',  up: 1 },
+  { domain: 'uber.com',              name: 'Uber',          val: '$152B',  up: 1 },
+  { domain: 'shopify.com',           name: 'Shopify',       val: '$128B',  up: 1 },
+  { domain: 'airbnb.com',            name: 'Airbnb',        val: '$94B',   up: 0 },
+  { domain: 'paypal.com',            name: 'PayPal',        val: '$85B',   up: 0 },
+  { domain: 'spotify.com',           name: 'Spotify',       val: '$77B',   up: 1 },
+  { domain: 'snowflake.com',         name: 'Snowflake',     val: '$61B',   up: 0 },
+  { domain: 'coinbase.com',          name: 'Coinbase',      val: '$57B',   up: 1 },
+  { domain: 'spacex.com',            name: 'SpaceX',        val: '$358B',  up: 1 },
 ];

@@ -3,7 +3,7 @@
 <title>FailFast — Stream Overlay</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -14,9 +14,17 @@
   --hand:#fafafa;
   --navy-900:#0a0a0a;--navy-800:#0a0a0a;--navy-700:#111827;
   --ink:#fafafa;--muted:#a1a1aa;--live:#ff3b46;
-  --line:rgba(228,228,231,.15);--glass:rgba(17,24,39,.85);
-  --display:"Plus Jakarta Sans","DM Sans",sans-serif;--sans:"DM Sans","Plus Jakarta Sans",sans-serif;--mono:"IBM Plex Mono",monospace;
+  --line:rgba(228,228,231,.15);--glass:rgba(74, 90, 124, 0.85);
+  --display:"Inter",sans-serif;--sans:"Inter",sans-serif;--mono:"IBM Plex Mono",monospace;
   --glow:drop-shadow(0 0 14px rgba(123,156,255,.55)) drop-shadow(0 0 4px rgba(123,156,255,.4));
+  /* ===== redesigned broadcast chrome palette ===== */
+  --brand:#343f76;--ink-panel:#0f1117;--red:#e05252;
+  --chrome-grad:linear-gradient(135deg,#343f76,#0f1117,#0f1117,#0f1117);
+  --surface:rgba(255,255,255,.06);--hair:rgba(255,255,255,.07);--hair-2:rgba(255,255,255,.12);
+  /* shared translucent panel surface — lets the starfield read through subtly */
+  --panel:rgba(15,17,23,.78);
+  /* desaturated semantic indicators */
+  --up:#5fb89a;--dn:#d98a82;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;background:transparent;overflow:hidden}
@@ -47,9 +55,9 @@ body{display:grid;place-items:center;font-family:var(--sans);color:var(--ink)}
 /* ===== clean broadcast frames (image-2 style) ===== */
 .win{position:absolute;border-radius:7px}
 .win .frame{position:absolute;inset:0;border-radius:7px;
-  box-shadow:inset 0 0 0 2px rgba(123,156,255,.55), inset 0 0 0 4px rgba(10,10,10,.65), 0 18px 50px rgba(0,0,0,.5);}
-.win .filler{position:absolute;inset:4px;border-radius:5px;background:linear-gradient(140deg,#13131a,#111827);
-  display:grid;place-items:center;color:var(--muted);font-family:var(--mono);font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:var(--pbg,1);}
+  box-shadow:0 14px 40px rgba(0,0,0,.4);}
+.win .filler{position:absolute;inset:0;border-radius:7px;background:var(--ink-panel);
+  display:grid;place-items:center;color:rgba(255,255,255,.45);font-family:var(--mono);font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:var(--pbg,1);}
 .no-preview .win .filler{display:none}
 
 #cams-duo .win{top:120px;height:700px;width:912px}
@@ -61,47 +69,58 @@ body{display:grid;place-items:center;font-family:var(--sans);color:var(--ink)}
 #cams-image .win.center .filler{font-size:15px}
 #cams-solo .win{left:370px;top:120px;width:1180px;height:700px}
 
-/* ===== TOP BAR ===== */
+/* ===== TOP BAR (redesigned) ===== */
 #chrome[hidden]{display:none}
-.topbar{position:absolute;top:30px;left:46px;right:46px;height:78px;display:flex;align-items:center;justify-content:space-between;z-index:6}
-.topbox{width:460px;height:78px;display:flex;align-items:center;justify-content:space-between;background:var(--glass);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(8px);padding:0 24px}
-.topbox.left{width:400px;height:68px;padding:0 20px}
-.topbox.left .loc{display:flex;align-items:center;gap:10px}
-.topbox.left .loc .pin{width:30px;height:30px;fill:var(--cyan);flex:none}
-.topbox.left .loc span{font-family:var(--display);font-weight:900;font-size:26px;letter-spacing:2px;color:#fafafa}
-.topbox .cl{display:flex;align-items:center;gap:12px}
-.topbox.left .cl .dot{width:13px;height:13px}
-.topbox .cl .dot{width:15px;height:15px;border-radius:50%;background:var(--live);box-shadow:0 0 12px var(--live);animation:pulse 1.4s infinite}
-.topbox .cl .t{font-family:var(--mono);font-weight:500;font-size:30px;letter-spacing:2px;color:var(--ink)}
-.topbox.left .cl .t{font-size:26px}
+.topbar{position:absolute;top:0;left:0;right:0;background:var(--panel);
+  border-bottom:1px solid var(--hair);box-shadow:0 6px 24px rgba(0,0,0,.35);
+  padding:20px 32px;display:flex;align-items:center;justify-content:space-between;z-index:6}
+.topbox{display:flex;align-items:center;border:1px solid var(--hair-2);border-radius:14px;padding:14px 22px;
+  background:var(--surface);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 4px 14px rgba(0,0,0,.3)}
+.topbox .dot{width:12px;height:12px;border-radius:50%;background:var(--red);flex:none}
+.topbox .city{font-family:var(--sans);font-weight:600;font-size:26px;letter-spacing:.08em;color:#fff;margin-left:16px}
+.topbox .sep{width:1px;height:26px;background:rgba(255,255,255,.2);margin:0 22px;flex:none}
+.topbox .t{font-family:var(--sans);font-weight:400;font-size:26px;font-variant-numeric:tabular-nums;letter-spacing:.04em;color:rgba(255,255,255,.65)}
+.topbox.right .lab{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:#fafafa}
+.topbox.right .sponsor{height:34px;width:auto;display:block;object-fit:contain}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
-.topbox.right{width:435px}
-.topbox.right .lab{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:3px;color:var(--muted)}
-.topbox.right img{height:46px}
 
-/* ===== BOTTOM BLOCK ===== */
-.bottom{position:absolute;left:0;right:0;bottom:0;height:236px;z-index:5;display:flex;align-items:stretch;filter:drop-shadow(0 -8px 34px rgba(0,0,0,.45))}
-.badge{flex:none;width:300px;position:relative;background:linear-gradient(155deg,var(--blue),var(--blue-deep));z-index:2;
-  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0;margin:0;overflow:hidden}
-.badge::after{content:"";position:absolute;right:-26px;top:0;bottom:0;width:52px;background:linear-gradient(155deg,var(--blue),var(--blue-deep));transform:skewX(-11deg);z-index:1}
-.badge .badgelogo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;padding:0;box-sizing:border-box;display:block;z-index:2}
-.badge .ff{position:relative;z-index:3;font-family:var(--display);font-weight:900;font-size:26px;letter-spacing:1px;line-height:1.02;color:#fafafa;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+/* ===== LOWER THIRD (redesigned) ===== */
+.bottom{position:absolute;left:0;right:0;bottom:0;z-index:5;display:flex;flex-direction:column;
+  background:var(--panel);
+  border-top:1px solid var(--hair-2);box-shadow:0 -6px 24px rgba(0,0,0,.35)}
 
+/* upper: logo column + (names over headline) */
+.upper{display:flex;align-items:stretch}
+.logoblock{flex:none;width:300px;position:relative;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;padding:0 20px 16px}
+.logoblock .ic{width:168px;height:auto;display:block;margin-top:-44px;filter:drop-shadow(0 6px 16px rgba(72,103,255,.22)) drop-shadow(0 5px 12px rgba(0,0,0,.4))}
+.logoblock .wm{width:204px;height:auto;display:block;margin-top:4px}
+.logoblock .sub{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:2px 0 0 .42em}
 .info{flex:1;display:flex;flex-direction:column;min-width:0}
-.namestrip{height:46px;background:linear-gradient(100deg,var(--blue),var(--blue-deep));display:flex;align-items:center;padding:0 26px 0 4px;gap:14px;overflow:hidden;white-space:nowrap}
-.namestrip .seg{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:.5px;color:#fafafa;display:inline-flex;align-items:baseline;gap:10px}
-.namestrip .seg .role{font-family:var(--sans);font-weight:700;font-size:18px;color:var(--hand);letter-spacing:1px}
-.namestrip .seg .ig{font-family:var(--mono);font-weight:500;font-size:18px;color:#e4e4e7}
-.namestrip .div{width:2px;height:24px;background:rgba(255,255,255,.4);margin:0 6px}
-.headline{flex:1;background:#ffffff;display:flex;flex-direction:column;justify-content:center;padding:8px 30px 8px 60px;border-left:6px solid var(--blue);min-height:0}
-.headline .h{font-family:var(--display);font-weight:900;font-size:60px;line-height:.96;color:#0a0a0a;letter-spacing:-.5px;outline:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.headline .s{font-family:var(--sans);font-weight:700;font-size:24px;color:#0a0a0a;letter-spacing:.3px;margin-top:8px;outline:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
-.headline [contenteditable]:focus{background:rgba(123,156,255,.12);box-shadow:0 0 0 2px var(--blue) inset;border-radius:4px}
-.ticker{height:56px;background:var(--glass);border-top:3px solid var(--blue-bright);backdrop-filter:blur(10px);display:flex;align-items:center;overflow:hidden;padding-left:60px}
-.ticker .track{display:flex;align-items:center;gap:48px;white-space:nowrap;animation:scroll 40s linear infinite}
-.ticker .item{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:20px}
-.ticker .item .pill{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:1px;background:rgba(123,156,255,.18);color:var(--cyan);padding:4px 11px;border-radius:7px}
-.ticker .item .delta.up{color:#46e0a8;font-weight:600}.ticker .item .delta.dn{color:#ff6b73;font-weight:600}
+
+.namestrip{display:flex;align-items:center;gap:18px;padding:14px 30px 10px;overflow:hidden;white-space:nowrap}
+.namestrip .seg{font-family:var(--sans);font-weight:700;font-size:26px;color:#fff;display:inline-flex;align-items:baseline;gap:12px}
+.namestrip .seg .role{font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.namestrip .seg .ig{font-weight:400;font-size:18px;color:rgba(255,255,255,.4)}
+.namestrip .div{width:1px;height:26px;background:var(--hair-2);margin:0 8px}
+
+.headline{flex:1;background:#e6e7eb;display:flex;flex-direction:column;justify-content:center;padding:16px 30px 18px;min-height:0}
+.headline .h{font-family:var(--sans);font-weight:600;font-size:60px;line-height:1.05;color:#0a0a0a;letter-spacing:-.2px;outline:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.headline .s{font-family:var(--sans);font-weight:500;font-size:26px;color:rgba(0,0,0,.55);margin-top:12px;outline:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.headline [contenteditable]:focus{background:rgba(52,63,118,.1);outline:2px solid var(--brand);border-radius:4px}
+
+/* ticker */
+.ticker{height:64px;border-top:1px solid var(--hair);display:flex;align-items:stretch;overflow:hidden}
+.ticker .track-wrap{flex:1;overflow:hidden;display:flex;align-items:center;padding-left:24px}
+.ticker .track{display:flex;align-items:center;white-space:nowrap;animation:scroll 90s linear infinite}
+.ticker .item{display:flex;align-items:center;gap:13px;font-family:var(--sans);font-size:22px}
+.ticker .cologo{height:26px;width:auto;max-width:30px;object-fit:contain;filter:brightness(0) invert(1);flex:none}
+.ticker .co{font-weight:600;color:#fff}
+.ticker .val{font-weight:500;font-variant-numeric:tabular-nums;color:rgba(255,255,255,.7);display:inline-flex;align-items:center;gap:5px}
+.ticker .val .arr{font-size:15px}
+.ticker .val.up{color:var(--up)}
+.ticker .val.dn{color:var(--dn)}
+.ticker .bullet{flex:none;width:1px;height:26px;background:var(--hair-2);margin:0 28px}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ===== FULLSCREEN SCENES ===== */
@@ -166,23 +185,49 @@ body{display:grid;place-items:center;font-family:var(--sans);color:var(--ink)}
   <div id="chrome">
     <div class="topbar">
       <div class="topbox left">
-        <div class="loc"><svg class="pin" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg><span>BOGOTÁ</span></div>
-        <div class="cl"><span class="dot"></span><span class="t" id="clock">00:00:00</span></div>
+        <span class="dot"></span>
+        <span class="city">Bogotá</span>
+        <span class="sep"></span>
+        <span class="t" id="clock">00:00:00</span>
       </div>
       <div class="topbox right">
         <span class="lab">PATROCINADOR</span>
-        <img class="brandlogo" alt="Fail Fast">
+        <span class="sep"></span>
+        <img class="sponsor" src="logo-white.png" alt="Fail Fast">
       </div>
     </div>
 
     <div class="bottom">
-      <div class="badge">
-        <img class="badgelogo" src="logo.svg" alt="">
+      <div class="upper">
+        <div class="logoblock">
+          <svg class="ic" viewBox="0 0 1371 1045" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Fail Fast">
+            <path d="M946.699 523.85C968.145 537.957 981.012 561.722 981.012 587.171V866.698C981.012 883.092 962.362 892.75 948.7 883.441L828.635 792.765C815.958 783.17 808.524 768.301 808.524 752.542C808.524 745.14 802.456 739.167 794.989 739.167C786.538 739.167 777.292 739.167 777.292 739.167H593.367H575.67C568.172 739.167 562.103 745.171 562.103 752.542C562.103 768.301 554.669 783.17 541.992 792.765C503.231 822.059 421.927 883.441 421.927 883.441C408.265 892.75 389.615 883.092 389.615 866.698V587.171C389.615 561.722 402.483 537.957 423.929 523.85C448.933 507.393 464.978 480.546 467.487 450.966L474.382 369.186C483.373 262.497 522.992 160.542 588.569 75.2987L623.041 30.5007C654.336 -10.1669 716.291 -10.1669 747.554 30.5007L782.026 75.2987C847.603 160.542 887.222 262.497 896.214 369.186L903.108 450.966C905.618 480.546 921.631 507.393 946.667 523.85H946.699Z" fill="#4867FF"/>
+            <path d="M458.051 78.6351C436.828 114.601 419.099 152.377 405.056 191.456C400.989 202.735 390.346 210.328 378.336 210.328H202.671C187.008 210.328 174.299 223.037 174.299 238.7V935.388C174.299 944.284 170.137 952.672 163.02 958.042L55.4732 1039.28C50.5486 1043 44.5438 1045 38.3801 1045H28.372C12.7086 1045 0 1032.29 0 1016.63V64.3696C0 48.7062 12.7086 35.9976 28.372 35.9976H433.524C455.414 35.9976 469.171 59.7945 458.051 78.6351Z" fill="#4867FF"/>
+            <path d="M912.512 78.6351C933.736 114.601 951.464 152.377 965.507 191.456C969.574 202.735 980.217 210.328 992.227 210.328H1167.89C1183.56 210.328 1196.26 223.037 1196.26 238.7V935.388C1196.26 944.284 1200.43 952.672 1207.54 958.042L1315.09 1039.28C1320.01 1043 1326.02 1045 1332.18 1045H1342.19C1357.85 1045 1370.56 1032.29 1370.56 1016.63V64.3696C1370.56 48.7062 1357.85 35.9976 1342.19 35.9976H937.04C915.149 35.9976 901.392 59.7945 912.512 78.6351Z" fill="#4867FF"/>
+          </svg>
+          <svg class="wm" viewBox="0 0 2785 607" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Fail Fast">
+            <path d="M0 599.499H107.039V373.921H277.557V289.027H107.039V152.155H329.567V65.7679H0V599.499Z" fill="white"/>
+            <path d="M672.892 236.285C658.627 216.905 639.627 200.86 615.926 188.12C592.224 175.379 564.551 168.993 532.97 168.993C496.782 168.993 464.026 177.921 434.701 195.745C405.375 213.6 382.182 239.081 365.121 272.219C348.027 305.357 339.513 343.324 339.513 386.152C339.513 428.98 348.059 467.837 365.121 501.229C382.182 534.621 405.375 560.483 434.701 578.847C463.994 597.211 496.496 606.361 532.208 606.361C563.82 606.361 591.716 599.848 615.926 586.853C640.136 573.859 659.135 557.401 672.892 537.544V599.498H780.725V175.887H672.892V236.285ZM657.61 454.588C647.412 473.206 633.654 487.472 616.307 497.416C598.96 507.361 580.373 512.317 560.484 512.317C540.595 512.317 522.899 507.234 505.805 497.035C488.712 486.836 474.955 472.189 464.502 453.063C454.049 433.936 448.839 411.665 448.839 386.152C448.839 360.639 454.049 338.622 464.502 320.003C474.955 301.417 488.585 287.247 505.424 277.557C522.231 267.866 540.595 263.037 560.484 263.037C580.373 263.037 598.96 267.993 616.307 277.938C633.623 287.882 647.412 302.148 657.61 320.766C667.809 339.384 672.892 361.688 672.892 387.677C672.892 413.666 667.777 435.97 657.61 454.588Z" fill="white"/>
+            <path d="M954.26 175.856H847.222V599.467H954.26V175.856Z" fill="white"/>
+            <path d="M901.518 6.10352e-05C882.646 6.10352e-05 866.983 6.00491 854.496 17.9828C842.01 29.9607 835.751 44.8934 835.751 62.7172C835.751 80.5411 841.978 95.4737 854.496 107.452C866.983 119.43 882.646 125.434 901.518 125.434C920.391 125.434 936.054 119.461 948.54 107.452C961.026 95.4737 967.286 80.5729 967.286 62.7172C967.286 44.8616 961.026 29.9607 948.54 17.9828C936.054 6.00491 920.359 6.10352e-05 901.518 6.10352e-05Z" fill="white"/>
+            <path d="M1128.62 33.6457H1021.58V599.498H1128.62V33.6457Z" fill="white"/>
+            <path d="M1339.68 599.499H1446.72V373.921H1617.24V289.027H1446.72V152.155H1669.25V65.7679H1339.68V599.499Z" fill="white"/>
+            <path d="M2012.57 236.285C1998.31 216.905 1979.31 200.86 1955.6 188.12C1931.9 175.379 1904.23 168.993 1872.65 168.993C1836.46 168.993 1803.7 177.921 1774.38 195.745C1745.05 213.6 1721.86 239.081 1704.8 272.219C1687.71 305.357 1679.19 343.324 1679.19 386.152C1679.19 428.98 1687.74 467.837 1704.8 501.229C1721.86 534.621 1745.05 560.483 1774.38 578.847C1803.67 597.211 1836.17 606.361 1871.89 606.361C1903.5 606.361 1931.39 599.848 1955.6 586.853C1979.81 573.859 1998.81 557.401 2012.57 537.544V599.498H2120.4V175.888H2012.57V236.285ZM1997.29 454.588C1987.09 473.206 1973.33 487.472 1955.99 497.416C1938.64 507.361 1920.05 512.317 1900.16 512.317C1880.27 512.317 1862.58 507.234 1845.48 497.035C1828.39 486.836 1814.63 472.19 1804.18 453.063C1793.73 433.937 1788.52 411.665 1788.52 386.152C1788.52 360.639 1793.73 338.622 1804.18 320.004C1814.63 301.417 1828.26 287.247 1845.1 277.557C1861.91 267.866 1880.27 263.037 1900.16 263.037C1920.05 263.037 1938.64 267.993 1955.99 277.938C1973.3 287.882 1987.09 302.148 1997.29 320.766C2007.49 339.384 2012.57 361.688 2012.57 387.677C2012.57 413.666 2007.46 435.97 1997.29 454.588Z" fill="white"/>
+            <path d="M2441.55 373.157C2421.66 365.024 2396.44 357.113 2365.84 349.456C2335.75 341.799 2313.58 334.301 2299.31 326.898C2285.05 319.527 2277.9 308.693 2277.9 294.396C2277.9 281.655 2283.11 271.711 2293.56 264.562C2304.01 257.413 2318.91 253.855 2338.3 253.855C2359.2 253.855 2375.88 258.811 2388.37 268.756C2400.85 278.7 2407.88 292.076 2409.4 308.915H2511.86C2508.81 266.087 2492.23 232.06 2462.17 206.833C2432.08 181.606 2391.83 168.993 2341.35 168.993C2307.19 168.993 2277.48 174.617 2252.26 185.8C2227.03 197.016 2207.65 212.298 2194.15 231.678C2180.64 251.059 2173.88 272.473 2173.88 295.921C2173.88 324.483 2181.15 347.168 2195.67 363.975C2210.19 380.783 2227.54 393.301 2247.68 401.434C2267.83 409.599 2293.69 417.479 2325.3 425.136C2355.9 433.301 2378.17 440.799 2392.21 447.694C2406.22 454.588 2413.24 464.914 2413.24 478.671C2413.24 491.411 2407.53 501.864 2396.02 510.03C2384.55 518.195 2368.61 522.262 2348.24 522.262C2327.87 522.262 2309.89 516.924 2295.85 506.217C2281.81 495.51 2273.8 482.007 2271.77 465.676H2163.93C2165.46 491.666 2174.26 515.367 2190.3 536.781C2206.35 558.195 2228.14 575.161 2255.69 587.616C2283.2 600.102 2314.31 606.361 2348.97 606.361C2383.63 606.361 2412.07 600.865 2437.3 589.935C2462.52 578.974 2481.9 563.819 2495.41 544.438C2508.91 525.057 2515.68 503.135 2515.68 478.671C2515.17 450.648 2507.64 428.091 2493.12 410.997C2478.6 393.936 2461.38 381.291 2441.49 373.157H2441.55Z" fill="white"/>
+            <path d="M2784.88 263.799V175.856H2690.07V71.1046H2582.24V175.856H2531.79V263.799H2582.24V467.964C2582.24 555.653 2627.35 599.498 2717.59 599.498H2784.88V509.267H2735.19C2718.86 509.267 2707.29 506.09 2700.4 499.704C2693.5 493.349 2690.07 483.024 2690.07 468.726V263.799H2784.88Z" fill="white"/>
+          </svg>
+          <div class="sub">Show</div>
+        </div>
+        <div class="info">
+          <div class="namestrip" id="namestrip"></div>
+          <div class="headline">
+            <div class="h" contenteditable="true">SpaceX sale al mercado</div>
+            <div class="s" contenteditable="true">Con una valuación de 2.5 trillion, superando a Tesla, Meta y Broadcom</div>
+          </div>
+        </div>
       </div>
-      <div class="info">
-        <div class="namestrip" id="namestrip"></div>
-        <div class="headline"></div>
-        <div class="ticker"><div class="track" id="track"></div></div>
+      <div class="ticker">
+        <div class="track-wrap"><div class="track" id="track"></div></div>
       </div>
     </div>
   </div>
@@ -286,8 +331,10 @@ function renderNames(scene){
 
 // News headlines come from news.js (the `items` array). Edit them there.
 const track=document.getElementById('track');
-const th=items.map(i=>`<div class="item">${i.logo?`<img src="${i.logo}" alt="" style="height:22px; width:auto; vertical-align:middle; opacity:0.9; filter:brightness(0) invert(1);">`:''}<span>${i.t}</span><span class="delta ${i.up?'up':'dn'}">${i.d}</span></div>`).join('');
-track.innerHTML=th+th;
+const logoURL=d=>`https://logo.clearbit.com/${d}`;
+const faviconURL=d=>`https://www.google.com/s2/favicons?domain=${d}&sz=64`;
+const th=items.map(i=>`<span class="item"><img class="cologo" src="${logoURL(i.domain)}" onerror="this.onerror=null;this.src='${faviconURL(i.domain)}'" alt=""><span class="co">${i.name}</span><span class="val ${i.up?'up':'dn'}">${i.val}<span class="arr">${i.up?'▲':'▼'}</span></span></span>`).join('<span class="bullet"></span>');
+track.innerHTML=th+'<span class="bullet"></span>'+th+'<span class="bullet"></span>';
 
 const groups={duo:'cams-duo',image:'cams-image',solo:'cams-solo',start:'fs-start',brb:'fs-brb',end:'fs-end'};
 const chromeScenes=['duo','image','solo'];
