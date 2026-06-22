@@ -71,9 +71,8 @@ body{display:grid;place-items:center;font-family:var(--sans);color:var(--ink)}
 
 /* ===== TOP BAR (redesigned) ===== */
 #chrome[hidden]{display:none}
-.topbar{position:absolute;top:0;left:0;right:0;background:var(--panel);
-  border-bottom:1px solid var(--hair);box-shadow:0 6px 24px rgba(0,0,0,.35);
-  padding:20px 32px;display:flex;align-items:center;justify-content:space-between;z-index:6}
+.topbar{position:absolute;top:0;left:0;right:0;background:transparent;
+  padding:20px 40px;display:flex;align-items:center;justify-content:space-between;z-index:6}
 .topbox{display:flex;align-items:center;border:1px solid var(--hair-2);border-radius:14px;padding:14px 22px;
   background:var(--surface);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 4px 14px rgba(0,0,0,.3)}
@@ -331,9 +330,7 @@ function renderNames(scene){
 
 // News headlines come from news.js (the `items` array). Edit them there.
 const track=document.getElementById('track');
-const logoURL=d=>`https://logo.clearbit.com/${d}`;
-const faviconURL=d=>`https://www.google.com/s2/favicons?domain=${d}&sz=64`;
-const th=items.map(i=>`<span class="item"><img class="cologo" src="${logoURL(i.domain)}" onerror="this.onerror=null;this.src='${faviconURL(i.domain)}'" alt=""><span class="co">${i.name}</span><span class="val ${i.up?'up':'dn'}">${i.val}<span class="arr">${i.up?'▲':'▼'}</span></span></span>`).join('<span class="bullet"></span>');
+const th=items.map(i=>`<span class="item"><img class="cologo" src="${i.logo}" alt=""><span class="co">${i.name}</span><span class="val ${i.up?'up':'dn'}">${i.val}<span class="arr">${i.up?'▲':'▼'}</span></span></span>`).join('<span class="bullet"></span>');
 track.innerHTML=th+'<span class="bullet"></span>'+th+'<span class="bullet"></span>';
 
 const groups={duo:'cams-duo',image:'cams-image',solo:'cams-solo',start:'fs-start',brb:'fs-brb',end:'fs-end'};
